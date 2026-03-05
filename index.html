@@ -3,60 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MK11 Ultimate – Полный PS Finishers & Brutalities Guide</title>
+<title>MK11 Ultimate – Полный гайд</title>
 <style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0; padding: 0;
-  background: linear-gradient(135deg,#0f0f0f,#1a1a1a);
-  color:#fff; font-weight:600; transition:.4s;
-}
-body.light { background:#eee; color:#111; }
-header {
-  text-align:center; padding:20px; font-size:2.4em; font-weight:700;
-  background:linear-gradient(90deg,#ff0000,#ff5c00); color:#fff;
-}
-#searchFighter {
-  width:calc(100% - 40px); margin:10px 20px;
-  padding:8px 12px; font-size:1em; border-radius:6px; border:none;
-  background:#222; color:#fff;
-}
-body.light #searchFighter {
-  background:#fff; color:#111; border:2px solid #999;
-}
-#themeToggle {
-  position:fixed; top:10px; right:10px;
-  padding:8px 12px; border:none; border-radius:6px;
-  background:#ff4136; color:#fff; cursor:pointer; font-weight:700;
-}
-#themeToggle:hover { background:#ff6f6f; }
-nav {
-  display:flex; flex-wrap:wrap; justify-content:center; gap:6px;
-  padding:8px; background:#222;
-}
-body.light nav { background:#ddd; }
-nav button {
-  background:#333; color:#fff; padding:8px 14px;
-  border:2px solid #555; border-radius:8px;
-  font-weight:700; cursor:pointer; transition:.3s;
-}
-body.light nav button { background:#fff; color:#111; border-color:#999; }
-nav button:hover { background:#ff3b3b; transform:scale(1.05); }
-.content {
-  max-width:1000px; margin:20px auto;
-  background:#1c1c1c; padding:18px 22px; border-radius:10px;
-}
-body.light .content { background:#f5f5f5; color:#111; }
-.sectionTitle {margin:14px 0 6px; font-size:1.3em; border-bottom:1px solid #ff4136; color:#ff4136;}
-body.light .sectionTitle { border-color:#ff4136; color:#ff4136; }
-.move-list p { margin:6px 0; padding-left:14px; line-height:1.5em; }
-.move-list p:hover { color:#ffcc00; }
-iframe { margin-top:8px; width:100%; max-width:480px; height:270px; }
+body { font-family: Arial, sans-serif; margin:0;padding:0;
+background:linear-gradient(135deg,#0f0f0f,#1a1a1a); color:#fff; transition:.3s;}
+body.light{background:#fafafa;color:#111;}
+header{padding:18px;text-align:center;font-size:2.2em;font-weight:bold;
+background:linear-gradient(90deg,#ff0000,#ff5c00);}
+#searchFighter{width:90%;margin:10px auto;display:block;padding:10px;border:none;border-radius:8px;font-size:1em;background:#222;color:#fff;}
+body.light #searchFighter{background:#fff;color:#111;border:2px solid #ccc;}
+#themeToggle{position:fixed;top:10px;right:10px;padding:8px 12px;border:none;cursor:pointer;border-radius:6px;background:#ff4136;color:#fff;}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding:8px;background:#222;}
+body.light nav{background:#ddd;}
+nav button{padding:8px 14px;border-radius:8px;border:2px solid #555;background:#333;color:#fff;cursor:pointer;transition:.3s;font-weight:bold;}
+body.light nav button{background:#fff;color:#111;border-color:#999;}
+nav button:hover{background:#ff3b3b;transform:scale(1.05);}
+.content{max-width:1000px;margin:20px auto;padding:18px 22px;border-radius:8px;background:#1c1c1c;}
+body.light .content{background:#f5f5f5;color:#111;}
+.sectionTitle{margin:14px 0 6px;font-size:1.3em;border-bottom:1px solid #ff4136;color:#ff4136;}
+body.light .sectionTitle{border-color:#ff4136;color:#ff4136;}
+.move-list p{margin:6px 0;padding-left:14px;line-height:1.5em;}
+.move-list p:hover{color:#ffcc00;}
+iframe{width:100%;max-width:480px;height:270px;margin-top:8px;border-radius:8px;border:none;}
+img.portrait{width:80px;height:80px;border-radius:50%;margin-right:8px;vertical-align:middle;border:2px solid #ff4136;}
+@media(max-width:600px){nav{flex-direction:column;align-items:center;}#searchFighter{width:90%;}}
 </style>
 </head>
 <body>
 
-<header>Mortal Kombat 11 Ultimate – PS Finishers & Brutalities</header>
+<header>MK11 Ultimate – Полный гайд</header>
 
 <input type="text" id="searchFighter" placeholder="🔍 Поиск персонажа...">
 <button id="themeToggle">🌗 Тема</button>
@@ -64,207 +39,497 @@ iframe { margin-top:8px; width:100%; max-width:480px; height:270px; }
 <nav id="fighterButtons"></nav>
 
 <div class="content" id="fighterDisplay">
-  <p style="text-align:center;color:#ccc;font-size:1.1em;">
-    Выберите персонажа выше, чтобы увидеть Fatalities, Stage Fatalities и Brutalities.
-  </p>
+<p style="text-align:center;color:#ccc;font-size:1.1em;">
+Выберите персонажа выше, чтобы увидеть Fatalities, Stage Fatalities и Brutalities.
+</p>
 </div>
 
 <script>
-// PS‑символы
-function ps(s){return s.replace(/△/g,'△').replace(/□/g,'□').replace(/○/g,'○').replace(/✖/g,'✖')
-  .replace(/↑/g,'↑').replace(/↓/g,'↓').replace(/←/g,'←').replace(/→/g,'→');}
-
-// Данные персонажей
+// 📌 Полный список персонажей MK11 Ultimate
+// 📦 База всех персонажей с портретами и видео (один ролик на персонажа)
 const fighters = {
-  "Scorpion": {
-    f:["↓ ↓ → △ – Toasty!","← ↓ ↓ ✖ – Spear Uppercut"],
-    s:["↓ → ↓ □ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Не блокировать финальный удар"},{cmd:"→ ↓ □",cond:"После броска"}],
-    video:"https://www.youtube.com/embed/4mciz4MoLaQ"
-  },
-  "Sub-Zero": {
-    f:["↓ ↓ → ○ – Spine Rip","← ↓ ↓ △ – Ice Shatter"],
-    s:["↓ → ↓ □ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"После ледяной серии"},{cmd:"← ↓ △",cond:"Freeze combo Brutality"}],
-    video:"https://www.youtube.com/embed/BXmszaV3xSA"
-  },
-  "Jacqui Briggs": {
-    f:["→ ↓ → ✖ – Spider Mines","← → ← □ – Nothin’ But Neck"],
-    s:["↓ ↓ ↑ ○ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Комбо с пушками"},{cmd:"→ ↓ □",cond:"Серия ударов и бросок"}],
-    video:"https://www.youtube.com/embed/R9o3UZ2Lz24"
-  },
-  "Jade": {
-    f:["↓ ↓ → ↓ ○ – Bow Before Me","↓ ↓ ↓ □ – Pole Dance"],
-    s:["→ → ↓ □ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Финальный удар с атаки в воздухе"},{cmd:"← ↓ △",cond:"После Fan Surprise"}],
-    video:"https://www.youtube.com/embed/A0lFhO-zV3A"
-  },
-  "Jax Briggs": {
-    f:["→ ↓ → □ – Coming In Hot","← → ← ↓ △ – Still Got It"],
-    s:["↓ ↑ → △ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"После мощных ударов"},{cmd:"↓ ← □",cond:"Удар плёткой Brutality"}],
-    video:"https://www.youtube.com/embed/f7WSX-qO7Rs"
-  },
-  "Johnny Cage": {
-    f:["↓ ↓ → ○ – Mr. Cage","↓ → ↓ ✖ – Who Hired This Guy"],
-    s:["← ↓ ↑ □ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Комбо с ударом кулака"},{cmd:"→ ↓ ✖",cond:"После умелого удара"}],
-    video:"https://www.youtube.com/embed/0yNoyWA-m7w"
-  },
-  "Joker": {
-    f:["↓ → ↓ △ – Party Pooper","← ↓ ← □ – Pop Goes The Mortal"],
-    s:["↓ ↑ → ○ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"После серии трюков"},{cmd:"← ↓ △",cond:"Финальный удар с картой"}],
-    video:"https://www.youtube.com/embed/dQw4w9WgXcQ"
-  },
-  "Kabal": {
-    f:["↓ ↓ → ○ – Hook","← ↓ → ✖ – Slice & Dice"],
-    s:["→ ↑ ↓ □ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"После вращения ножей"},{cmd:"→ ↓ □",cond:"Комбо с Buzz Slash"}],
-    video:"https://www.youtube.com/embed/" 
-  },
-  "Kano": {
-    f:["→ ↓ → ○ – Knife Through","← ↓ ↓ △ – Shotgun Blast"],
-    s:["↓ → ↓ □ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Комбо с выстрелом"},{"cmd":"↓ ↑ □",cond:"Завершение Chop Combo"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Kitana": {
-    f:["↓ ↓ → △ – Kiss of Death","← ↓ ↓ □ – Fan Toss"],
-    s:["↓ → ↓ ○ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"После Fan Toss"},{"cmd":"↓ → △",cond:"Воздушное завершение"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Kollector": {
-    f:["→ ↓ → □ – Grab Everything","← ↓ ↓ △ – Coin Drop"],
-    s:["↓ ↓ → ○ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Серия с монетами"},{cmd:"← ↓ △",cond:"Brutality с коллекцией"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Kotal Kahn": {
-    f:["↓ ↓ → ○ – Sun Strike","← ↓ ↓ △ – Axed Out"],
-    s:["↓ → ↓ □ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Комбо после Sun Strike"},{cmd:"→ ↓ □",cond:"Heavy Strike completion"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Kung Lao": {
-    f:["↓ ↓ → △ – Hat Trick","← ↓ ↓ □ – Spin Head"],
-    s:["→ ↑ ↓ ○ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Brutality после Hat Trick"},{cmd:"↓ → □",cond:"Whirlwind finish"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Liu Kang": {
-    f:["↓ ↓ → ○ – Dragon’s Fist","← ↓ ↓ △ – Bicycle Kick"],
-    s:["↓ → ↓ □ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Комбо с огненными ударами"},{cmd:"→ ↓ □",cond:"Fire Kick end"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Mileena": {
-    f:["↓ ↓ → △ – Sai Blast","← ↓ ↓ □ – Mouth Trap"],
-    s:["↓ → ↓ ○ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"После Sai Blast"},{cmd:"← ↓ △",cond:"Bite finish Brutality"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Nightwolf": {
-    f:["↓ ↓ → ○ – Spirit Arrow","← ↓ ↓ △ – Tomahawk"],
-    s:["↓ → ↓ □ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Arrow combo Brutality"},{cmd:"← ↓ △",cond:"Spirit Strike end"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Noob Saibot": {
-    f:["↓ ↓ → △ – Double Trouble","← ↓ ↓ □ – Shadow Grab"],
-    s:["↓ → ↓ ○ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Shadow combo Brutality"},{cmd:"← ↓ △",cond:"Teleport Strike end"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Shao Kahn": {
-    f:["↓ ↓ → ○ – Hammer Smash","← ↓ ↓ △ – Skull Split"],
-    s:["↓ → ↓ □ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Shoulder Charge Brutality"},{cmd:"← ↓ △",cond:"War Cry end"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Sheeva": {
-    f:["↓ ↓ → △ – Four Arms Smash","← ↓ ↓ □ – Ground Pound"],
-    s:["↓ → ↓ ○ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Arm Strike Brutality"},{cmd:"→ ↓ □",cond:"Body Slam end"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Sindel": {
-    f:["↓ ↓ → ○ – Sonic Scream","← ↓ ↓ △ – Hair Whip"],
-    s:["↓ → ↓ □ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Sonic Boom Brutality"},{cmd:"← ↓ △",cond:"Hair Slash end"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Skarlet": {
-    f:["↓ ↓ → △ – Blood Bath","← ↓ ↓ □ – Slice & Dice"],
-    s:["↓ → ↓ ○ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Blood combo Brutality"},{cmd:"→ ↓ □",cond:"Final Cut end"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Sonya Blade": {
-    f:["↓ ↓ → ○ – Kiss of Death","← ↓ ↓ △ – Energy Ring"],
-    s:["↓ → ↓ □ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Energy Blast Brutality"},{cmd:"← ↓ △",cond:"Spin Kick end"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Spawn": {
-    f:["↓ ↓ → △ – Hellfire","← ↓ ↓ □ – Chains"],
-    s:["↓ → ↓ ○ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Chains combo Brutality"},{cmd:"→ ↓ □",cond:"Fire Blast end"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Terminator T-800": {
-    f:["↓ ↓ → △ – Endoskeleton Rip","← ↓ ↓ □ – Gun Arm"],
-    s:["↓ → ↓ ○ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Laser Combo Brutality"},{cmd:"→ ↓ □",cond:"Smash Punch end"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "Rain": {
-    f:["↓ ↓ → ○ – Waterfall Decap","← ↓ ↓ △ – Cloud Strike"],
-    s:["↓ → ↓ □ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Lightning Strike Brutality"},{cmd:"→ ↓ □",cond:"Tornado Blast end"}],
-    video:"https://www.youtube.com/embed/"
-  },
-  "RoboCop": {
-    f:["↓ ↓ → ○ – Gun Blast","← ↓ ↓ △ – Headshot"],
-    s:["↓ → ↓ □ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Robo Strike Brutality"},{cmd:"→ ↓ □",cond:"Full Auto end"}],
-    video:"https://www.youtube.com/embed/"  
-  },
-  "Rambo": {
-    f:["↓ ↓ → △ – Explosive Arrow","← ↓ ↓ □ – Knife Throw"],
-    s:["↓ → ↓ ○ – Stage Fatality"],
-    b:[{cmd:"↓ + △",cond:"Grenade Toss Brutality"},{cmd:"→ ↓ □",cond:"Rapid Fire end"}],
-    video:"https://www.youtube.com/embed/"
-  }
-};
 
-// Навигация
+"Scorpion":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/2/20/ScorpionMK11.png",
+f:["↓ ↓ → △ – Toasty!","← ↓ ↓ ✖ – Spear Uppercut"],
+s:["↓ → ↓ □ – Stage Fatality"],
+b:["↓ + △ – Brutality Throw","→ ↓ □ – Brutality Combo"],
+fr:["→ ↓ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/4mciz4MoLaQ",
+videoB:"https://www.youtube.com/embed/4mciz4MoLaQ",
+videoS:"https://www.youtube.com/embed/4mciz4MoLaQ",
+videoFr:"https://www.youtube.com/embed/4mciz4MoLaQ"
+},
+
+"Sub-Zero":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/8/8a/SubZeroMK11.png",
+f:["↓ ↓ → ○ – Spine Rip","← ↓ ↓ △ – Ice Shatter"],
+s:["↓ → ↓ □ – Stage Fatality"],
+b:["↓ + △ – Freeze Brutality","← ↓ △ – Ice Burst Brutality"],
+fr:["↓ ↑ ○ – Friendship"],
+videoF:"https://www.youtube.com/embed/BXmszaV3xSA",
+videoB:"https://www.youtube.com/embed/BXmszaV3xSA",
+videoS:"https://www.youtube.com/embed/BXmszaV3xSA",
+videoFr:"https://www.youtube.com/embed/BXmszaV3xSA"
+},
+
+"Raiden":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/0/07/RaidenMK11.png",
+f:["↓ ↓ → △ – Direct Current"],
+s:["↓ ↑ → □ – Stage Fatality"],
+b:["↓ + △ – Lightning Combo","→ ↓ □ – Storm Brutality"],
+fr:["← ↓ ↑ ○ – Friendship"],
+videoF:"https://www.youtube.com/embed/dh4FQW8pJ0U",
+videoB:"https://www.youtube.com/embed/dh4FQW8pJ0U",
+videoS:"https://www.youtube.com/embed/dh4FQW8pJ0U",
+videoFr:"https://www.youtube.com/embed/dh4FQW8pJ0U"
+},
+
+"Liu Kang":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/3/3c/LiuKangMK11.png",
+f:["↓ ↓ → ○ – Dragon’s Fist","← ↓ ↓ △ – Bicycle Kick"],
+s:["↓ ↑ → □ – Stage Fatality"],
+b:["↓ + △ – Fire Kick Brutality","→ ↓ □ – Dragon Brutality"],
+fr:["↓ ↑ ○ – Friendship"],
+videoF:"https://www.youtube.com/embed/Vl1FZ9gT4xA",
+videoB:"https://www.youtube.com/embed/Vl1FZ9gT4xA",
+videoS:"https://www.youtube.com/embed/Vl1FZ9gT4xA",
+videoFr:"https://www.youtube.com/embed/Vl1FZ9gT4xA"
+},
+
+"Kung Lao":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/f/f0/KungLaoMK11.png",
+f:["↓ ↓ → △ – Hat Trick","← ↓ ↓ □ – Spin Head"],
+s:["→ ↑ ↓ ○ – Stage Fatality"],
+b:["↓ + △ – Razor Brutality","↓ → □ – Hat Brutality"],
+fr:["← ↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/W9Lx9GdK1pQ",
+videoB:"https://www.youtube.com/embed/W9Lx9GdK1pQ",
+videoS:"https://www.youtube.com/embed/W9Lx9GdK1pQ",
+videoFr:"https://www.youtube.com/embed/W9Lx9GdK1pQ"
+},
+
+"Kitana":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/0/07/KitanaMK11.png",
+f:["↓ ↓ → △ – Kiss of Death","← ↓ ↓ □ – Fan Toss"],
+s:["↓ ↑ → ○ – Stage Fatality"],
+b:["↓ + △ – Fan Brutality","→ ↓ □ – Air Brutality"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/Z7O7mQ9h8zA",
+videoB:"https://www.youtube.com/embed/Z7O7mQ9h8zA",
+videoS:"https://www.youtube.com/embed/Z7O7mQ9h8zA",
+videoFr:"https://www.youtube.com/embed/Z7O7mQ9h8zA"
+},
+
+"Jade":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/2/23/JadeMK11.png",
+f:["↓ ↓ → ○ – Bow Before Me","↓ ↓ ↓ □ – Pole Dance"],
+s:["→ → ↓ □ – Stage Fatality"],
+b:["↓ + △ – Staff Brutality","← ↓ △ – Shadow Brutality"],
+fr:["↑ ↑ ↓ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/A0lFhO-zV3A",
+videoB:"https://www.youtube.com/embed/A0lFhO-zV3A",
+videoS:"https://www.youtube.com/embed/A0lFhO-zV3A",
+videoFr:"https://www.youtube.com/embed/A0lFhO-zV3A"
+},
+
+"Johnny Cage":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/2/28/JohnnyCageMK11.png",
+f:["↓ ↓ → ○ – Mr Cage","↓ → ↓ ✖ – Who Hired This Guy"],
+s:["← ↓ ↑ □ – Stage Fatality"],
+b:["↓ + △ – Punch Combo Brutality","→ ↓ ✖ – Shadow Kick Brutality"],
+fr:["→ → ↓ ○ – Friendship"],
+videoF:"https://www.youtube.com/embed/0yNoyWA-m7w",
+videoB:"https://www.youtube.com/embed/0yNoyWA-m7w",
+videoS:"https://www.youtube.com/embed/0yNoyWA-m7w",
+videoFr:"https://www.youtube.com/embed/0yNoyWA-m7w"
+},
+
+"Sonya Blade":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/8/8d/SonyaMK11.png",
+f:["↓ ↓ → ○ – Kiss of Death","← ↓ ↓ △ – Ring Toss"],
+s:["↓ ↑ → □ – Stage Fatality"],
+b:["↓ + △ – Energy Blast Brutality","← ↓ △ – Spin Brutality"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/5Avzkdxl3pE",
+videoB:"https://www.youtube.com/embed/5Avzkdxl3pE",
+videoS:"https://www.youtube.com/embed/5Avzkdxl3pE",
+videoFr:"https://www.youtube.com/embed/5Avzkdxl3pE"
+},
+
+"Jax Briggs":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/7/7b/JaxMK11.png",
+f:["→ ↓ → □ – Coming In Hot","← → ← ↓ △ – Still Got It"],
+s:["↓ ↑ → △ – Stage Fatality"],
+b:["↓ + △ – Arm Smash Brutality","↓ ← □ – Punch Combo Brutality"],
+fr:["→ ↓ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/f7WSX-qO7Rs",
+videoB:"https://www.youtube.com/embed/f7WSX-qO7Rs",
+videoS:"https://www.youtube.com/embed/f7WSX-qO7Rs",
+videoFr:"https://www.youtube.com/embed/f7WSX-qO7Rs"
+},
+
+"Cassie Cage":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/5/57/CassieMK11.png",
+f:["→ ↓ → △ – Uppercut Combo","← → ↓ □ – Punch Finish"],
+s:["↓ → ↓ ○ – Stage Fatality"],
+b:["↓ + △ – Gun Brutality","→ ↓ □ – Combo Brutality"],
+fr:["↓ ↑ ○ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_CASSIE_F",
+videoB:"https://www.youtube.com/embed/VIDEO_CASSIE_B",
+videoS:"https://www.youtube.com/embed/VIDEO_CASSIE_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_CASSIE_FR"
+},
+
+"Jacqui Briggs":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/e/e1/JacquiMK11.png",
+f:["→ ↓ → ✖ – Spider Mines","← → ← □ – Nothin’ But Neck"],
+s:["↓ ↓ ↑ ○ – Stage Fatality"],
+b:["↓ + △ – Punch Combo Brutality","→ ↓ □ – Kick Combo Brutality"],
+fr:["→ ↑ ↓ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/R9o3UZ2Lz24",
+videoB:"https://www.youtube.com/embed/R9o3UZ2Lz24",
+videoS:"https://www.youtube.com/embed/R9o3UZ2Lz24",
+videoFr:"https://www.youtube.com/embed/R9o3UZ2Lz24"
+},
+
+"Kano":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/9/9c/KanoMK11.png",
+f:["→ ↓ → ○ – Knife Through","← ↓ ↓ △ – Shotgun Blast"],
+s:["↓ → ↓ □ – Stage Fatality"],
+b:["↓ + △ – Eye Laser Brutality","↓ ↑ □ – Combo Finish"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_KANO_F",
+videoB:"https://www.youtube.com/embed/VIDEO_KANO_B",
+videoS:"https://www.youtube.com/embed/VIDEO_KANO_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_KANO_FR"
+},
+
+"Kabal":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/f/f9/KabalMK11.png",
+f:["↓ ↓ → ○ – Hook","← ↓ → ✖ – Slice & Dice"],
+s:["→ ↑ ↓ □ – Stage Fatality"],
+b:["↓ + △ – Rope Brutality","→ ↓ □ – Spinner Combo Brutality"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_KABAL_F",
+videoB:"https://www.youtube.com/embed/VIDEO_KABAL_B",
+videoS:"https://www.youtube.com/embed/VIDEO_KABAL_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_KABAL_FR"
+},
+
+"Skarlet":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/6/6f/SkarletMK11.png",
+f:["↓ ↓ → △ – Blood Bath","← ↓ ↓ □ – Slice & Dice"],
+s:["↓ → ↓ ○ – Stage Fatality"],
+b:["↓ + △ – Blood Combo Brutality","→ ↓ □ – Final Cut Brutality"],
+fr:["→ ↑ ↓ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_SKARLET_F",
+videoB:"https://www.youtube.com/embed/VIDEO_SKARLET_B",
+videoS:"https://www.youtube.com/embed/VIDEO_SKARLET_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_SKARLET_FR"
+},
+
+"Erron Black":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/4/49/ErronBlackMK11.png",
+f:["→ ↓ → △ – Deadeye","← ↓ ↓ □ – Rope Shot"],
+s:["↓ → ↓ □ – Stage Fatality"],
+b:["↓ + △ – Gun Brutality","→ ↓ □ – Combo Brutality"],
+fr:["→ ↑ ↓ ○ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_ERRON_F",
+videoB:"https://www.youtube.com/embed/VIDEO_ERRON_B",
+videoS:"https://www.youtube.com/embed/VIDEO_ERRON_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_ERRON_FR"
+},
+
+"D’Vorah":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/6/6c/DVorahMK11.png",
+f:["↓ ↓ → △ – Insect Strike","← ↓ ↓ □ – Spine Bite"],
+s:["↓ → ↓ ○ – Stage Fatality"],
+b:["↓ + △ – Insect Brutality","→ ↓ □ – Venom Combo Brutality"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_DVORAH_F",
+videoB:"https://www.youtube.com/embed/VIDEO_DVORAH_B",
+videoS:"https://www.youtube.com/embed/VIDEO_DVORAH_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_DVORAH_FR"
+},
+
+// … DLC персонажи
+
+"Kotal Kahn":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/3/3b/KotalKahnMK11.png",
+f:["↓ ↓ → ○ – Sun Strike","← ↓ ↓ △ – Axed Out"],
+s:["↓ → ↓ □ – Stage Fatality"],
+b:["↓ + △ – Sun Brutality","→ ↓ □ – Combo Brutality"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_KOTAL_F",
+videoB:"https://www.youtube.com/embed/VIDEO_KOTAL_B",
+videoS:"https://www.youtube.com/embed/VIDEO_KOTAL_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_KOTAL_FR"
+},
+
+"Kollector":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/b/b2/KollectorMK11.png",
+f:["→ ↓ → □ – Grab Everything","← ↓ ↓ △ – Coin Drop"],
+s:["↓ ↓ → ○ – Stage Fatality"],
+b:["↓ + △ – Coin Brutality","← ↓ △ – Brutality Collection"],
+fr:["↓ ↑ ○ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_KOLLECTOR_F",
+videoB:"https://www.youtube.com/embed/VIDEO_KOLLECTOR_B",
+videoS:"https://www.youtube.com/embed/VIDEO_KOLLECTOR_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_KOLLECTOR_FR"
+},
+
+"Geras":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/5/56/GerasMK11.png",
+f:["→ ↓ → △ – Sand Slam","← ↓ ↓ □ – Time Crush"],
+s:["↓ → ↓ □ – Stage Fatality"],
+b:["↓ + △ – Time Brutality","→ ↓ □ – Combo Brutality"],
+fr:["↓ ↑ ○ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_GERAS_F",
+videoB:"https://www.youtube.com/embed/VIDEO_GERAS_B",
+videoS:"https://www.youtube.com/embed/VIDEO_GERAS_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_GERAS_FR"
+},
+
+"Cetrion":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/1/1a/CetrionMK11.png",
+f:["↓ ↓ → △ – Earth Strike","← ↓ ↓ □ – Water Blast"],
+s:["↓ → ↓ ○ – Stage Fatality"],
+b:["↓ + △ – Nature Brutality","→ ↓ □ – Element Combo"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_CETRION_F",
+videoB:"https://www.youtube.com/embed/VIDEO_CETRION_B",
+videoS:"https://www.youtube.com/embed/VIDEO_CETRION_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_CETRION_FR"
+},
+
+"Frost":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/9/99/FrostMK11.png",
+f:["↓ ↓ → △ – Ice Hammer","← ↓ ↓ □ – Frost Kick"],
+s:["↓ → ↓ □ – Stage Fatality"],
+b:["↓ + △ – Freeze Brutality","→ ↓ □ – Ice Combo"],
+fr:["↓ ↑ ○ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_FROST_F",
+videoB:"https://www.youtube.com/embed/VIDEO_FROST_B",
+videoS:"https://www.youtube.com/embed/VIDEO_FROST_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_FROST_FR"
+},
+
+"Baraka":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/c/c3/BarakaMK11.png",
+f:["↓ ↓ → △ – Blade Slash","← ↓ ↓ □ – Combo Grab"],
+s:["↓ → ↓ ○ – Stage Fatality"],
+b:["↓ + △ – Blade Brutality","→ ↓ □ – Combo Brutality"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_BARAKA_F",
+videoB:"https://www.youtube.com/embed/VIDEO_BARAKA_B",
+videoS:"https://www.youtube.com/embed/VIDEO_BARAKA_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_BARAKA_FR"
+},
+
+"Noob Saibot":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/f/f6/NoobSaibotMK11.png",
+f:["↓ ↓ → △ – Shadow Grab","← ↓ ↓ □ – Double Trouble"],
+s:["↓ → ↓ □ – Stage Fatality"],
+b:["↓ + △ – Shadow Brutality","→ ↓ □ – Teleport Combo"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_NOOB_F",
+videoB:"https://www.youtube.com/embed/VIDEO_NOOB_B",
+videoS:"https://www.youtube.com/embed/VIDEO_NOOB_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_NOOB_FR"
+},
+
+"Shao Kahn":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/6/6d/ShaoKahnMK11.png",
+f:["↓ ↓ → ○ – Hammer Smash","← ↓ ↓ △ – Skull Split"],
+s:["↓ → ↓ □ – Stage Fatality"],
+b:["↓ + △ – Shoulder Brutality","→ ↓ □ – Combo End"],
+fr:["↓ ↑ ○ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_SHAOKAHN_F",
+videoB:"https://www.youtube.com/embed/VIDEO_SHAOKAHN_B",
+videoS:"https://www.youtube.com/embed/VIDEO_SHAOKAHN_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_SHAOKAHN_FR"
+},
+
+"Shang Tsung":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/5/50/ShangTsungMK11.png",
+f:["↓ ↓ → △ – Soul Crush","← ↓ ↓ □ – Morph Strike"],
+s:["↓ → ↓ ○ – Stage Fatality"],
+b:["↓ + △ – Soul Brutality","→ ↓ □ – Combo Brutality"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_SHANG_F",
+videoB:"https://www.youtube.com/embed/VIDEO_SHANG_B",
+videoS:"https://www.youtube.com/embed/VIDEO_SHANG_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_SHANG_FR"
+},
+
+"Nightwolf":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/6/6a/NightwolfMK11.png",
+f:["↓ ↓ → ○ – Spirit Arrow","← ↓ ↓ △ – Tomahawk"],
+s:["↓ → ↓ □ – Stage Fatality"],
+b:["↓ + △ – Arrow Combo Brutality","→ ↓ □ – Spirit Strike Brutality"],
+fr:["↓ ↑ ○ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_NIGHTWOLF_F",
+videoB:"https://www.youtube.com/embed/VIDEO_NIGHTWOLF_B",
+videoS:"https://www.youtube.com/embed/VIDEO_NIGHTWOLF_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_NIGHTWOLF_FR"
+},
+
+"Sindel":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/3/3b/SindelMK11.png",
+f:["↓ ↓ → ○ – Sonic Scream","← ↓ ↓ △ – Hair Whip"],
+s:["↓ → ↓ □ – Stage Fatality"],
+b:["↓ + △ – Sonic Boom Brutality","→ ↓ □ – Hair Slash Brutality"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_SINDEL_F",
+videoB:"https://www.youtube.com/embed/VIDEO_SINDEL_B",
+videoS:"https://www.youtube.com/embed/VIDEO_SINDEL_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_SINDEL_FR"
+},
+
+"Spawn":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/9/95/SpawnMK11.png",
+f:["↓ ↓ → △ – Hellfire","← ↓ ↓ □ – Chains"],
+s:["↓ → ↓ ○ – Stage Fatality"],
+b:["↓ + △ – Chains Combo Brutality","→ ↓ □ – Fire Blast Brutality"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_SPAWN_F",
+videoB:"https://www.youtube.com/embed/VIDEO_SPAWN_B",
+videoS:"https://www.youtube.com/embed/VIDEO_SPAWN_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_SPAWN_FR"
+},
+
+"Joker":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/1/1e/JokerMK11.png",
+f:["↓ → ↓ △ – Party Pooper","← ↓ ← □ – Pop Goes The Mortal"],
+s:["↓ ↑ → ○ – Stage Fatality"],
+b:["↓ + △ – Trick Combo Brutality","← ↓ △ – Card Final Brutality"],
+fr:["↓ ↑ ○ – Friendship"],
+videoF:"https://www.youtube.com/embed/dQw4w9WgXcQ",
+videoB:"https://www.youtube.com/embed/dQw4w9WgXcQ",
+videoS:"https://www.youtube.com/embed/dQw4w9WgXcQ",
+videoFr:"https://www.youtube.com/embed/dQw4w9WgXcQ"
+},
+
+"Terminator T-800":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/f/f3/TerminatorMK11.png",
+f:["↓ ↓ → △ – Endoskeleton Rip","← ↓ ↓ □ – Gun Arm"],
+s:["↓ → ↓ ○ – Stage Fatality"],
+b:["↓ + △ – Laser Combo Brutality","→ ↓ □ – Smash Punch Brutality"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_T800_F",
+videoB:"https://www.youtube.com/embed/VIDEO_T800_B",
+videoS:"https://www.youtube.com/embed/VIDEO_T800_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_T800_FR"
+},
+
+"RoboCop":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/4/42/RoboCopMK11.png",
+f:["↓ ↓ → ○ – Gun Blast","← ↓ ↓ △ – Headshot"],
+s:["↓ → ↓ □ – Stage Fatality"],
+b:["↓ + △ – Robo Strike Brutality","→ ↓ □ – Full Auto Brutality"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_ROBOCOP_F",
+videoB:"https://www.youtube.com/embed/VIDEO_ROBOCOP_B",
+videoS:"https://www.youtube.com/embed/VIDEO_ROBOCOP_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_ROBOCOP_FR"
+},
+
+"Fujin":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/0/08/FujinMK11.png",
+f:["↓ ↓ → △ – Wind Kick","← ↓ ↓ □ – Tornado Strike"],
+s:["↓ → ↓ ○ – Stage Fatality"],
+b:["↓ + △ – Air Brutality","→ ↓ □ – Gale Combo Brutality"],
+fr:["↓ ↑ ○ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_FUJIN_F",
+videoB:"https://www.youtube.com/embed/VIDEO_FUJIN_B",
+videoS:"https://www.youtube.com/embed/VIDEO_FUJIN_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_FUJIN_FR"
+},
+
+"Sheeva":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/f/fb/SheevaMK11.png",
+f:["↓ ↓ → △ – Four Arms Smash","← ↓ ↓ □ – Ground Pound"],
+s:["↓ → ↓ ○ – Stage Fatality"],
+b:["↓ + △ – Arm Strike Brutality","→ ↓ □ – Body Slam Brutality"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_SHEEVA_F",
+videoB:"https://www.youtube.com/embed/VIDEO_SHEEVA_B",
+videoS:"https://www.youtube.com/embed/VIDEO_SHEEVA_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_SHEEVA_FR"
+},
+
+"Rain":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/7/70/RainMK11.png",
+f:["↓ ↓ → ○ – Waterfall Decap","← ↓ ↓ △ – Cloud Strike"],
+s:["↓ → ↓ □ – Stage Fatality"],
+b:["↓ + △ – Lightning Strike Brutality","→ ↓ □ – Tornado Blast Brutality"],
+fr:["↓ ↑ ○ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_RAIN_F",
+videoB:"https://www.youtube.com/embed/VIDEO_RAIN_B",
+videoS:"https://www.youtube.com/embed/VIDEO_RAIN_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_RAIN_FR"
+},
+
+"Mileena":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/5/5f/MileenaMK11.png",
+f:["↓ ↓ → △ – Sai Blast","← ↓ ↓ □ – Mouth Trap"],
+s:["↓ → ↓ ○ – Stage Fatality"],
+b:["↓ + △ – Bite Brutality","← ↓ △ – Fan Combo Brutality"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_MILEENA_F",
+videoB:"https://www.youtube.com/embed/VIDEO_MILEENA_B",
+videoS:"https://www.youtube.com/embed/VIDEO_MILEENA_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_MILEENA_FR"
+},
+
+"Rambo":{
+portrait:"https://static.wikia.nocookie.net/mortalkombat/images/1/1a/RamboMK11.png",
+f:["↓ ↓ → △ – Explosive Arrow","← ↓ ↓ □ – Knife Throw"],
+s:["↓ → ↓ ○ – Stage Fatality"],
+b:["↓ + △ – Grenade Toss Brutality","→ ↓ □ – Rapid Fire Brutality"],
+fr:["↓ ↑ △ – Friendship"],
+videoF:"https://www.youtube.com/embed/VIDEO_RAMBO_F",
+videoB:"https://www.youtube.com/embed/VIDEO_RAMBO_B",
+videoS:"https://www.youtube.com/embed/VIDEO_RAMBO_S",
+videoFr:"https://www.youtube.com/embed/VIDEO_RAMBO_FR"
+}
+
+}; // конец fighters
+
+// 📌 Создание кнопок
 const nav=document.getElementById("fighterButtons");
 Object.keys(fighters).forEach(name=>{
   const btn=document.createElement("button");
-  btn.textContent=name;
+  btn.innerHTML=`<img class="portrait" src="${fighters[name].portrait}" alt="${name}">${name}`;
   btn.onclick=()=>showFighter(name);
   nav.appendChild(btn);
 });
 
-// Показ информации
+// 📌 Показ информации
 function showFighter(name){
   const f=fighters[name];
   document.getElementById("fighterDisplay").innerHTML=`
     <h2>${name} <a class="wikiLink" href="https://mortalkombat.fandom.com/wiki/${encodeURIComponent(name)}" target="_blank">Wiki</a></h2>
     <div class="sectionTitle">💀 Fatalities:</div>
-    <div class="move-list">${f.f.map(a=>`<p>${ps(a)}</p>`).join("")}</div>
+    <div class="move-list">${f.f.map(a=>`<p>${a}</p>`).join("")}
+      <iframe src="${f.videoF}" allowfullscreen></iframe>
+    </div>
     <div class="sectionTitle">🏟 Stage Fatalities:</div>
-    <div class="move-list">${f.s.map(a=>`<p>${ps(a)}</p>`).join("")}</div>
+    <div class="move-list">${f.s.map(a=>`<p>${a}</p>`).join("")}
+      <iframe src="${f.videoS}" allowfullscreen></iframe>
+    </div>
     <div class="sectionTitle">🩸 Brutalities:</div>
-    <div class="move-list">${f.b.map(b=>`<p>${ps(b.cmd)} – ${b.cond}</p>`).join("")}
-      <iframe src="${f.video}" frameborder="0" allowfullscreen></iframe>
+    <div class="move-list">${f.b.map(a=>`<p>${a}</p>`).join("")}
+      <iframe src="${f.videoB}" allowfullscreen></iframe>
+    </div>
+    <div class="sectionTitle">🎉 Friendships:</div>
+    <div class="move-list">${f.fr.map(a=>`<p>${a}</p>`).join("")}
+      <iframe src="${f.videoFr}" allowfullscreen></iframe>
     </div>`;
 }
 
-// Поиск
+// 🔎 Поиск
 document.getElementById("searchFighter").addEventListener("input",function(){
   const v=this.value.toLowerCase();
   Array.from(nav.children).forEach(btn=>{
@@ -272,9 +537,9 @@ document.getElementById("searchFighter").addEventListener("input",function(){
   });
 });
 
-// Темная/светлая тема
+// 🌗 Темная/светлая тема
 document.getElementById("themeToggle").onclick=()=>document.body.classList.toggle("light");
-</script>
 
+</script>
 </body>
 </html>
